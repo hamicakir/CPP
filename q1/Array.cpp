@@ -5,41 +5,37 @@ using namespace std;
 
 //Constructors
 
-Array::Array(){ size = 1; };
+Array::Array()
+{
+ size=1;
+ data = new int[size]();
+}
+
 Array::Array(const int SIZE, const int value){
     size = SIZE;
-    for(int i = 0; i < SIZE; i++){
-        *(this->data + i) = value;
-    }
+    data = new int[size];
+    for(int i = 0; i < SIZE; i++)
+        data[i] = value;
 }
+
 Array::Array(const int SIZE, const int* arr){
     size = SIZE;
-    data = (int) &arr[0];
+    data = const_cast<int*>(arr);
 }
+
 Array::Array(const Array& array){
     this->size = array.size;
-    for(int i = 0; i < size; i++){
-        *(this->data + i) = *(array.data + i);
-    }  
+    this->data = array.data; 
 }
 
 // Member Functions
-
-int Array::getSize(){
-    return sizeof(size);
-}
-
-int* Array::getData(){
-    return data;
-}
-
 void Array::add(const Array& array){
     cout << "{ " ;
     for(int i = 0; i < this->size; i++){
         *(this->data + i) +=  *(array.data + i);
         cout << *(this->data + i) << " ,";
     }
-    cout << " }";
+    cout << " }" << endl;
 }
 
 void Array::subtract(const Array& array){
@@ -48,11 +44,11 @@ void Array::subtract(const Array& array){
         *(this->data + i)  -= *(array.data + i);
         cout << *(this->data + i) << " ,";
     }
-    cout << " }";
+    cout << " }" << endl;
 }
 
 int Array::multiply(const Array& array){
-    int result = 1;
+    int result = 0;
     for(int i = 0; i < this->size; i++){
         result += (*(this->data + i) * *(array.data + i));
     }
@@ -65,7 +61,15 @@ void Array::copy(const Array& array){
         *(this->data + i) = *(array.data + i);
         cout << *(this->data + i) << " ,";
     }
-    cout << " }";
+    cout << " }" << endl;
+}
+
+int Array::getSize(){
+    return size;
+}
+
+int* Array::getData(){
+    return data;
 }
 
 void Array::fill(const int value){
@@ -74,13 +78,13 @@ void Array::fill(const int value){
         *(this->data + i) = value;
         cout << *(this->data + i) << " ,";
     }
-    cout << " }";
+    cout << " }" << endl;
 }
 
 void Array::print(){
     cout << "[ ";
-    for(int i = 0; i < this->size; i++){
-        cout << *(this->data + i) << " ";
+    for(int i = 0; i < size; i++){
+        cout << data[i] << " ";
     }
-    cout << " ]";
+    cout << "]" << endl;;
 }
