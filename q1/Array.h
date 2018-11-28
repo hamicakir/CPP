@@ -5,6 +5,7 @@ class Array
         Array(const int SIZE, const int value);
         Array(const int SIZE, const int* arr);
         Array(const Array& array);
+    
         void add(const Array& array);
         void subtract(const Array& array);
         int multiply(const Array& array);
